@@ -3,6 +3,7 @@ import { update } from "../BooksAPI";
 
 export default class Book extends Component {
   handleChange = async (e) => {
+    e.persist();
     try {
       const shelf = e.target.value;
       const book = this.props;
@@ -24,7 +25,9 @@ export default class Book extends Component {
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage: `url(${this.props.imageLinks.thumbnail})`,
+                backgroundImage: `url(${
+                  this.props.imageLinks ? this.props.imageLinks.thumbnail : ""
+                })`,
               }}
             />
             <div className="book-shelf-changer">
@@ -39,8 +42,10 @@ export default class Book extends Component {
               </select>
             </div>
           </div>
-          <div className={this.props.title}>1776</div>
-          <div className={this.props.authors[0]}>David McCullough</div>
+          <div className="book-title">{this.props.title}</div>
+          <div className="book-authors">
+            {this.props.authors ? this.props.authors[0] : "No Author"}
+          </div>
         </div>
       </li>
     );
